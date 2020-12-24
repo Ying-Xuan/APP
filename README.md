@@ -1,1 +1,1 @@
-# APP
+expo install expo-image-picker
