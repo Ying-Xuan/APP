@@ -38,6 +38,7 @@ class forthpage extends React.Component {
     this.state = {
         gender : '',
         num_of_people : '',
+        source_base64 : '',
     };
   }
 
@@ -52,6 +53,14 @@ class forthpage extends React.Component {
     this.setState({num_of_people : number});
     alert('number of people：' + number);
   }
+
+  set_source(source){
+    const {source_base64} = this.state;
+    this.setState({source_base64 : source});
+    alert('base64：' + source);
+  }
+
+  
   //add
 
   render() {
@@ -64,8 +73,13 @@ class forthpage extends React.Component {
         alert('Permission to access camera roll is required!');
         return;
       }else{
-        let pickerResult = await ImagePicker.launchCameraAsync();
+        let pickerResult = await ImagePicker.launchCameraAsync({base64:true});
         console.log(pickerResult);
+
+        const source = pickerResult.base64;
+        //const source = { uri: 'data:image/jpeg;base64,' + pickerResult.data };
+        this.set_source(source);
+        //const image= "data:image/jpeg;base64," + this.state.source
       } 
     };
 
@@ -76,7 +90,7 @@ class forthpage extends React.Component {
         alert('Permission to access gallery is required!');
         return;
       }else{
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({base64:true});
         console.log(pickerResult);
       }
     };
